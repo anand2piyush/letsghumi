@@ -83,6 +83,7 @@ def default_data() -> dict[str, Any]:
             {
                 "slug": "rishikesh-weekend-river-reset",
                 "tourism_type": "weekend",
+                "recommended": True,
                 "title": "Rishikesh River Reset",
                 "card_description": "2D1N rafting, cafes, river walks, and peaceful evening aarti.",
                 "price": "6999",
@@ -110,6 +111,7 @@ def default_data() -> dict[str, Any]:
             {
                 "slug": "varanasi-sacred-yatra",
                 "tourism_type": "devotional",
+                "recommended": True,
                 "title": "Varanasi Sacred Yatra",
                 "card_description": "Temple darshan, Ganga aarti, old-lane walks, and priest coordination.",
                 "price": "n/a",
@@ -133,6 +135,7 @@ def default_data() -> dict[str, Any]:
             {
                 "slug": "manali-workcation-residence",
                 "tourism_type": "workcation",
+                "recommended": True,
                 "title": "Manali Workcation Residence",
                 "card_description": "Monthly stay with workspace, Wi-Fi, weekend trails, and team add-ons.",
                 "price": "34999",
@@ -156,6 +159,7 @@ def default_data() -> dict[str, Any]:
             {
                 "slug": "custom-himalayan-journey",
                 "tourism_type": "custom",
+                "recommended": True,
                 "title": "Custom Himalayan Journey",
                 "card_description": "Pick your number of days, stay category, transport, and activities.",
                 "price": "n/a",
@@ -190,6 +194,8 @@ def load_data() -> dict[str, Any]:
     data.setdefault("cards", [])
     data["settings"].setdefault("guide_image", "")
     data["settings"].setdefault("home_instagram_links", [])
+    for card in data["cards"]:
+        card.setdefault("recommended", False)
     return data
 
 
@@ -281,12 +287,9 @@ templates.env.filters["discounted_price"] = discounted_price
 
 
 @app.get("/")
-async def home(request: Request, type: str = "all"):
+async def home(request: Request):
     data = load_data()
-    selected_type = type if type in TYPE_LOOKUP else "all"
-    cards = data["cards"]
-    if selected_type != "all":
-        cards = [card for card in cards if card.get("tourism_type") == selected_type]
+    cards = [card for card in data["cards"] if card.get("recommended")]
     return templates.TemplateResponse(
         "home.html",
         {
@@ -294,7 +297,9 @@ async def home(request: Request, type: str = "all"):
             "settings": data["settings"],
             "tourism_types": TOURISM_TYPES,
             "cards": cards,
-            "selected_type": selected_type,
+            "selected_type": "recommended",
+            "page_title": "Recommended LetsGhumi plans",
+            "page_eyebrow": "Recommended trips",
             "guide_image": guide_image_url(data["settings"]),
             "whatsapp_link": whatsapp_link(data["settings"].get("whatsapp_url", ""), data["settings"].get("brand", "")),
         },
@@ -434,6 +439,7 @@ async def save_card(
     card_description: str = Form(...),
     price: str = Form(""),
     discount: str = Form(""),
+    recommended: Optional[str] = Form(None),
     detailed_description: str = Form(""),
     image_detail: list[str] = Form([]),
     image_url: list[str] = Form([]),
@@ -467,6 +473,7 @@ async def save_card(
         "card_description": card_description.strip(),
         "price": price.strip(),
         "discount": discount.strip(),
+        "recommended": recommended == "on",
         "detailed_description": detailed_description.strip(),
         "images": images[:6],
         "instagram_links": clean_links(instagram_links, 10),
@@ -489,3 +496,26 @@ async def delete_card(request: Request, slug: str):
     data["cards"] = [card for card in data["cards"] if card.get("slug") != slug]
     save_data(data)
     return RedirectResponse("/owner#cards", status_code=303)
+
+
+@app.get("/{tourism_type}")
+async def tourism_type_page(request: Request, tourism_type: str):
+    if tourism_type not in TYPE_LOOKUP:
+        return RedirectResponse("/", status_code=303)
+    data = load_data()
+    type_info = TYPE_LOOKUP[tourism_type]
+    cards = [card for card in data["cards"] if card.get("tourism_type") == tourism_type]
+    return templates.TemplateResponse(
+        "category.html",
+        {
+            "request": request,
+            "settings": data["settings"],
+            "tourism_types": TOURISM_TYPES,
+            "cards": cards,
+            "selected_type": tourism_type,
+            "page_title": f"{type_info['display']} plans",
+            "page_eyebrow": type_info["name"],
+            "guide_image": guide_image_url(data["settings"]),
+            "whatsapp_link": whatsapp_link(data["settings"].get("whatsapp_url", ""), data["settings"].get("brand", "")),
+        },
+    )

@@ -5,7 +5,7 @@
 {% block content %}
   <section class="detail-hero">
     <div>
-      <a class="back-link" href="/?type={{ card.tourism_type }}">Back to {{ type_info.display }}</a>
+      <a class="back-link" href="/{{ card.tourism_type }}">Back to {{ type_info.display }}</a>
       <p class="eyebrow">{{ type_info.display }}</p>
       <h1>{{ card.title }}</h1>
       <p>{{ card.card_description }}</p>

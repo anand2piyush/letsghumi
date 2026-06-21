@@ -21,9 +21,9 @@
         <span>{{ settings.brand if settings else "LetsGhumi" }}</span>
       </a>
       <nav class="nav-pills" aria-label="Tourism types">
-        <a href="/" class="{{ 'active' if selected_type|default('') == 'all' else '' }}">All</a>
+        <a href="/" class="{{ 'active' if selected_type|default('') == 'recommended' else '' }}">Recommended</a>
         {% for item in tourism_types %}
-          <a href="/?type={{ item.id }}" class="{{ 'active' if selected_type|default('') == item.id else '' }}">{{ item.display }}</a>
+          <a href="/{{ item.id }}" class="{{ 'active' if selected_type|default('') == item.id else '' }}">{{ item.display }}</a>
         {% endfor %}
       </nav>
       <!-- <div class="header-actions">

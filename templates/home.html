@@ -22,7 +22,7 @@
 
   <section class="type-band" aria-label="Tourism categories">
     {% for item in tourism_types %}
-      <a class="type-card {{ 'selected' if selected_type == item.id else '' }}" href="/?type={{ item.id }}">
+      <a class="type-card {{ 'selected' if selected_type == item.id else '' }}" href="/{{ item.id }}">
         <span>{{ item.name }}</span>
         <strong>{{ item.display }}</strong>
         <small>{{ item.tagline }}</small>
@@ -32,8 +32,8 @@
 
   <section class="section-shell" id="trips">
     <div class="section-heading">
-      <p class="eyebrow">Explore trips</p>
-      <h2>{{ "All LetsGhumi plans" if selected_type == "all" else "Plans for " ~ tourism_types|selectattr("id", "equalto", selected_type)|map(attribute="display")|first }}</h2>
+      <p class="eyebrow">{{ page_eyebrow|default("Explore trips") }}</p>
+      <h2>{{ page_title|default("Recommended LetsGhumi plans") }}</h2>
     </div>
 
     <div class="trip-grid">
@@ -68,7 +68,7 @@
           </div>
         </article>
       {% else %}
-        <p class="empty-state">No trips in this category yet.</p>
+        <p class="empty-state">No trips available here yet.</p>
       {% endfor %}
     </div>
   </section>

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page_title }} | {{ settings.brand }}{% endblock %}
+
+{% block content %}
+  <section class="category-page">
+    <div class="category-heading">
+      <p class="eyebrow">{{ page_eyebrow }}</p>
+      <h1>{{ page_title }}</h1>
+      <p>{{ tourism_types|selectattr("id", "equalto", selected_type)|map(attribute="tagline")|first }}</p>
+    </div>
+
+    <div class="trip-grid">
+      {% for card in cards %}
+        <article class="trip-card">
+          <a class="trip-image-slider" href="/tourism/{{ card.slug }}" aria-label="Open {{ card.title }}">
+            {% for image in card.images[:6] %}
+              <img src="{{ image.url }}" alt="{{ card.title }} image {{ loop.index }}" class="{{ 'active' if loop.first else '' }}">
+            {% endfor %}
+          </a>
+          <div class="trip-card-body">
+            <div class="trip-meta">
+              <span>{{ tourism_types|selectattr("id", "equalto", card.tourism_type)|map(attribute="display")|first }}</span>
+              {% if card.discount %}
+                <span>{{ card.discount }}% off</span>
+              {% endif %}
+            </div>
+            <h3><a href="/tourism/{{ card.slug }}">{{ card.title }}</a></h3>
+            <p>{{ card.card_description }}</p>
+            <div class="price-row">
+              {% if card.price|price_visible %}
+                <strong>Rs {{ card.price }}</strong>
+                {% set discounted = card.price|discounted_price(card.discount) %}
+                {% if discounted %}
+                  <span>After discount Rs {{ discounted }}</span>
+                {% endif %}
+              {% else %}
+                <strong>Custom quote</strong>
+                <span>Price depends on days and choices</span>
+              {% endif %}
+            </div>
+          </div>
+        </article>
+      {% else %}
+        <p class="empty-state">No trips available in this category yet.</p>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}

@@ -98,6 +98,10 @@
             Discount percentage
             <input name="discount" value="{{ edit_card.discount if edit_card else '' }}" inputmode="numeric">
           </label>
+          <label class="check-label">
+            <input name="recommended" type="checkbox" {{ 'checked' if edit_card and edit_card.recommended else '' }}>
+            <span>Recommended on home page</span>
+          </label>
         </div>
         <label>
           Card description
@@ -162,7 +166,7 @@
           <article>
             <div>
               <strong>{{ card.title }}</strong>
-              <span>{{ tourism_types|selectattr("id", "equalto", card.tourism_type)|map(attribute="display")|first }}</span>
+              <span>{{ tourism_types|selectattr("id", "equalto", card.tourism_type)|map(attribute="display")|first }}{% if card.recommended %} · Recommended{% endif %}</span>
             </div>
             <div class="owner-actions">
               <a class="small-button" href="/tourism/{{ card.slug }}" target="_blank">View</a>

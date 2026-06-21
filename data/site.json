@@ -10,17 +10,14 @@
   },
   "cards": [
     {
-      "slug": "rishikesh-weekend-river-reset",
+      "slug": "rishikesh-river-reset",
       "tourism_type": "weekend",
       "title": "Rishikesh River Reset",
       "card_description": "2D1N rafting, cafes, river walks, and peaceful evening aarti.",
       "price": "6999",
       "discount": "15",
+      "recommended": true,
       "detailed_description": "A compact weekend plan with pickup support, riverside stay options, rafting slots, cafe hopping, and a guided Ganga aarti visit. Designed for travellers who want the trip to feel full without becoming tiring.",
-      "instagram_links": [
-        "https://www.instagram.com/p/C9demo11/",
-        "https://www.instagram.com/p/C9demo12/"
-      ],
       "images": [
         {
           "url": "https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&w=1200&q=80",
@@ -34,6 +31,10 @@
           "url": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=80",
           "detail": "Evening plans are paced around local food and river aarti timing."
         }
+      ],
+      "instagram_links": [
+        "https://www.instagram.com/p/C9demo11/",
+        "https://www.instagram.com/p/C9demo12/"
       ]
     },
     {
@@ -57,7 +58,8 @@
           "url": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
           "detail": "Weekend route options can be added without disturbing workdays."
         }
-      ]
+      ],
+      "recommended": false
     },
     {
       "slug": "custom-himalayan-journey",
@@ -66,11 +68,8 @@
       "card_description": "Pick your number of days, stay category, transport, and activities.",
       "price": "n/a",
       "discount": "",
+      "recommended": true,
       "detailed_description": "A flexible plan for travellers who already have a rough idea but want local guidance to make it practical. You can decide the number of days, places, transport comfort, food preferences, and activity level.",
-      "instagram_links": [
-        "https://www.instagram.com/p/C9demo41/",
-        "https://www.instagram.com/p/C9demo42/"
-      ],
       "images": [
         {
           "url": "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=80",
@@ -80,6 +79,10 @@
           "url": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
           "detail": "Routes can be adjusted for families, friends, couples, or solo travellers."
         }
+      ],
+      "instagram_links": [
+        "https://www.instagram.com/p/C9demo41/",
+        "https://www.instagram.com/p/C9demo42/"
       ]
     },
     {
@@ -103,7 +106,8 @@
       "instagram_links": [
         "https://www.instagram.com/reel/DZMruC3ip3h/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==",
         "https://www.instagram.com/reel/DZMruC3ip3h/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ=="
-      ]
+      ],
+      "recommended": false
     },
     {
       "slug": "dharamshala",
@@ -123,7 +127,8 @@
           "detail": "testdrive2"
         }
       ],
-      "instagram_links": []
+      "instagram_links": [],
+      "recommended": false
     }
   ]
 }

@@ -281,6 +281,29 @@ img {
   padding: 16px 0 72px;
 }
 
+.category-page {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 42px 0 86px;
+}
+
+.category-heading {
+  max-width: 760px;
+  margin-bottom: 24px;
+}
+
+.category-heading h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 5vw, 4.5rem);
+  line-height: 1;
+}
+
+.category-heading p:not(.eyebrow) {
+  color: var(--muted);
+  font-size: 1.04rem;
+  line-height: 1.65;
+}
+
 .section-heading {
   display: flex;
   justify-content: space-between;
@@ -659,6 +682,24 @@ label {
   color: var(--muted);
   font-size: 0.86rem;
   font-weight: 800;
+}
+
+.check-label {
+  display: flex;
+  min-height: 42px;
+  align-items: center;
+  gap: 10px;
+  align-self: end;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f6f4ec;
+  padding: 10px 12px;
+}
+
+.check-label input {
+  width: 18px;
+  min-height: 18px;
+  accent-color: var(--forest);
 }
 
 input,
