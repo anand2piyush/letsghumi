@@ -37,29 +37,6 @@
       ]
     },
     {
-      "slug": "varanasi-sacred-yatra",
-      "tourism_type": "devotional",
-      "title": "Varanasi Sacred Yatra",
-      "card_description": "Temple darshan, Ganga aarti, old-lane walks, and priest coordination.",
-      "price": "n/a",
-      "discount": "",
-      "detailed_description": "A devotional route for travellers who want structure around darshan timings, local transport, rituals, and heritage lanes. Pricing is kept custom because priest services, stay comfort, and group size change the plan.",
-      "instagram_links": [
-        "https://www.instagram.com/p/C9demo21/",
-        "https://www.instagram.com/p/C9demo22/"
-      ],
-      "images": [
-        {
-          "url": "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&w=1200&q=80",
-          "detail": "Sunrise boat rides can be added for a calm start before temple visits."
-        },
-        {
-          "url": "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1200&q=80",
-          "detail": "Routes are planned around crowd flow, rituals, and senior-friendly movement."
-        }
-      ]
-    },
-    {
       "slug": "manali-workcation-residence",
       "tourism_type": "workcation",
       "title": "Manali Workcation Residence",
@@ -127,6 +104,26 @@
         "https://www.instagram.com/reel/DZMruC3ip3h/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==",
         "https://www.instagram.com/reel/DZMruC3ip3h/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ=="
       ]
+    },
+    {
+      "slug": "dharamshala",
+      "tourism_type": "custom",
+      "title": "dharamshala",
+      "card_description": "test droi",
+      "price": "n/a",
+      "discount": "",
+      "detailed_description": "jkdhfjsdnfsnmbcshsdbnmsdfdsh",
+      "images": [
+        {
+          "url": "https://6a37a3b005d679a122faf60d.imgix.net/ghumi/test/guide.jpeg",
+          "detail": "test drive1"
+        },
+        {
+          "url": "https://6a37a3b005d679a122faf60d.imgix.net/ghumi/test/guide.jpeg",
+          "detail": "testdrive2"
+        }
+      ],
+      "instagram_links": []
     }
   ]
 }
