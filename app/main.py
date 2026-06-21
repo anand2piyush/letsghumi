@@ -7,6 +7,7 @@ import re
 import shutil
 from pathlib import Path
 from typing import Any, Optional
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 from fastapi import FastAPI, File, Form, Request, Response, UploadFile
 from fastapi.responses import RedirectResponse
@@ -66,8 +67,8 @@ def default_data() -> dict[str, Any]:
     return {
         "settings": {
             "brand": "LetsGhumi",
-            "whatsapp_url": "https://wa.me/919999999999",
-            "instagram_url": "https://instagram.com/letsghumi",
+            "whatsapp_url": "https://wa.me/916201086736",
+            "instagram_url": "https://instagram.com/divya_viksh",
             "guide_name": "Your Local Guide",
             "guide_image": "",
             "guide_detail": "Friendly route planning, temple timing support, stay coordination, and local food recommendations.",
@@ -223,6 +224,35 @@ def guide_image_url(settings: dict[str, Any]) -> str:
     return "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=700&q=80"
 
 
+def whatsapp_message(brand: str, card_title: str = "", tourism_type: str = "") -> str:
+    lines = [f"Hi {brand or 'LetsGhumi'}", "I want more details"]
+    if card_title:
+        details = card_title
+        if tourism_type:
+            details = f"{details} - {tourism_type}"
+        lines.extend(["", details])
+    return "\n".join(lines)
+
+
+def whatsapp_link(base_url: str, brand: str, card_title: str = "", tourism_type: str = "") -> str:
+    if not base_url:
+        return ""
+    base_url = base_url.strip()
+    if not base_url:
+        return ""
+
+    message = whatsapp_message(brand, card_title, tourism_type)
+    if not urlsplit(base_url).scheme:
+        digits = re.sub(r"\D+", "", base_url)
+        if digits:
+            base_url = f"https://wa.me/{digits}"
+
+    parts = urlsplit(base_url)
+    query = [(key, value) for key, value in parse_qsl(parts.query, keep_blank_values=True) if key != "text"]
+    query.append(("text", message))
+    return urlunsplit((parts.scheme, parts.netloc, parts.path, urlencode(query), parts.fragment))
+
+
 def clean_links(raw_links: list[str], limit: int) -> list[str]:
     return [link.strip() for link in raw_links if link.strip()][:limit]
 
@@ -266,6 +296,7 @@ async def home(request: Request, type: str = "all"):
             "cards": cards,
             "selected_type": selected_type,
             "guide_image": guide_image_url(data["settings"]),
+            "whatsapp_link": whatsapp_link(data["settings"].get("whatsapp_url", ""), data["settings"].get("brand", "")),
         },
     )
 
@@ -285,6 +316,12 @@ async def tourism_detail(request: Request, slug: str):
             "card": card,
             "type_info": TYPE_LOOKUP.get(card.get("tourism_type"), TOURISM_TYPES[-1]),
             "guide_image": guide_image_url(data["settings"]),
+            "whatsapp_link": whatsapp_link(
+                data["settings"].get("whatsapp_url", ""),
+                data["settings"].get("brand", ""),
+                card.get("title", ""),
+                TYPE_LOOKUP.get(card.get("tourism_type"), TOURISM_TYPES[-1]).get("display", ""),
+            ),
         },
     )
 
@@ -305,6 +342,7 @@ async def owner(request: Request, edit: Optional[str] = None):
             "edit_card": edit_card,
             "empty_slots": range(6),
             "guide_image": guide_image_url(data["settings"]),
+            "whatsapp_link": whatsapp_link(data["settings"].get("whatsapp_url", ""), data["settings"].get("brand", "")),
         },
     )
 

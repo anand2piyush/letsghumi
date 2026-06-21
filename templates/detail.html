@@ -23,7 +23,7 @@
       </div>
       <div class="hero-actions">
         {% if settings.whatsapp_url %}
-          <a class="button primary" href="{{ settings.whatsapp_url }}" target="_blank" rel="noopener">Ask on WhatsApp</a>
+          <a class="button primary" href="{{ whatsapp_link|default(settings.whatsapp_url) }}" target="_blank" rel="noopener">Ask on WhatsApp</a>
         {% endif %}
         {% if settings.instagram_url %}
           <a class="button secondary" href="{{ settings.instagram_url }}" target="_blank" rel="noopener">View Instagram</a>

@@ -11,7 +11,7 @@
       <p class="hero-copy">Choose a ready plan or build your own route with stays, transport, local guidance, and Instagram-ready trip memories handled in one place.</p>
       <div class="hero-actions">
         {% if settings.whatsapp_url %}
-          <a class="button primary" href="{{ settings.whatsapp_url }}" target="_blank" rel="noopener">Connect on WhatsApp</a>
+          <a class="button primary" href="{{ whatsapp_link|default(settings.whatsapp_url) }}" target="_blank" rel="noopener">Connect on WhatsApp</a>
         {% endif %}
         {% if settings.instagram_url %}
           <a class="button secondary" href="{{ settings.instagram_url }}" target="_blank" rel="noopener">Connect on Instagram</a>
