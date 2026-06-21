@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+
+{% block title %}Owner Dashboard | {{ settings.brand }}{% endblock %}
+
+{% block content %}
+  <section class="owner-shell">
+    <div class="owner-top">
+      <div>
+        <p class="eyebrow">Owner dashboard</p>
+        <h1>Manage LetsGhumi content</h1>
+      </div>
+      <form method="post" action="/owner/logout">
+        <button class="button secondary" type="submit">Logout</button>
+      </form>
+    </div>
+
+    <section class="owner-panel" id="settings">
+      <h2>Home and contact settings</h2>
+      <form method="post" action="/owner/settings" enctype="multipart/form-data" class="owner-form">
+        <div class="form-grid">
+          <label>
+            Brand name
+            <input name="brand" value="{{ settings.brand }}" required>
+          </label>
+          <label>
+            WhatsApp link
+            <input name="whatsapp_url" value="{{ settings.whatsapp_url }}">
+          </label>
+          <label>
+            Instagram profile link
+            <input name="instagram_url" value="{{ settings.instagram_url }}">
+          </label>
+          <label>
+            Guide name
+            <input name="guide_name" value="{{ settings.guide_name }}">
+          </label>
+        </div>
+        <label>
+          Guide detail
+          <textarea name="guide_detail" rows="3">{{ settings.guide_detail }}</textarea>
+        </label>
+        <div class="guide-editor">
+          <img src="{{ guide_image }}" alt="{{ settings.guide_name or 'LetsGhumi guide' }}">
+          <label>
+            Guide image
+            <input name="guide_image_file" type="file" accept="image/*">
+          </label>
+        </div>
+        <div class="repeat-block" data-repeat data-max="50">
+          <div class="repeat-head">
+            <h3>Home Instagram links</h3>
+            <button class="small-button" type="button" data-add-repeat>Add link</button>
+          </div>
+          <div data-repeat-list>
+            {% for link in settings.home_instagram_links %}
+              <label>
+                Instagram post link
+                <input name="home_instagram_links" value="{{ link }}">
+              </label>
+            {% endfor %}
+            <label>
+              Instagram post link
+              <input name="home_instagram_links" value="">
+            </label>
+          </div>
+        </div>
+        <button class="button primary" type="submit">Save settings</button>
+      </form>
+    </section>
+
+    <section class="owner-panel" id="cards">
+      <div class="panel-heading">
+        <h2>{{ "Edit travel card" if edit_card else "Add travel card" }}</h2>
+        {% if edit_card %}
+          <a class="small-button" href="/owner#cards">Add new instead</a>
+        {% endif %}
+      </div>
+      <form method="post" action="/owner/cards" enctype="multipart/form-data" class="owner-form">
+        <input type="hidden" name="original_slug" value="{{ edit_card.slug if edit_card else '' }}">
+        <div class="form-grid">
+          <label>
+            Tourism type
+            <select name="tourism_type" required>
+              {% for item in tourism_types %}
+                <option value="{{ item.id }}" {{ 'selected' if edit_card and edit_card.tourism_type == item.id else '' }}>{{ item.display }}</option>
+              {% endfor %}
+            </select>
+          </label>
+          <label>
+            Card title
+            <input name="title" value="{{ edit_card.title if edit_card else '' }}" required>
+          </label>
+          <label>
+            Price
+            <input name="price" value="{{ edit_card.price if edit_card else '' }}" placeholder="Use n/a to hide">
+          </label>
+          <label>
+            Discount percentage
+            <input name="discount" value="{{ edit_card.discount if edit_card else '' }}" inputmode="numeric">
+          </label>
+        </div>
+        <label>
+          Card description
+          <textarea name="card_description" rows="2" required>{{ edit_card.card_description if edit_card else '' }}</textarea>
+        </label>
+        <label>
+          Detailed description
+          <textarea name="detailed_description" rows="5">{{ edit_card.detailed_description if edit_card else '' }}</textarea>
+        </label>
+
+        <div class="image-editor">
+          <h3>Images and image details</h3>
+          {% for index in empty_slots %}
+            {% set current = edit_card.images[index] if edit_card and edit_card.images|length > index else none %}
+            <div class="image-row">
+              <input type="hidden" name="existing_image" value="{{ current.url if current else '' }}">
+              <label>
+                Image {{ loop.index }} upload
+                <input name="image_file" type="file" accept="image/*">
+              </label>
+              <label>
+                Image {{ loop.index }} URL
+                <input name="image_url" value="{{ current.url if current else '' }}" placeholder="Or paste image URL">
+              </label>
+              <label class="wide">
+                Detail for image {{ loop.index }}
+                <input name="image_detail" value="{{ current.detail if current else '' }}">
+              </label>
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="repeat-block" data-repeat data-max="10">
+          <div class="repeat-head">
+            <h3>Trip Instagram links</h3>
+            <button class="small-button" type="button" data-add-repeat>Add link</button>
+          </div>
+          <div data-repeat-list>
+            {% if edit_card %}
+              {% for link in edit_card.instagram_links %}
+                <label>
+                  Instagram post link
+                  <input name="instagram_links" value="{{ link }}">
+                </label>
+              {% endfor %}
+            {% endif %}
+            <label>
+              Instagram post link
+              <input name="instagram_links" value="">
+            </label>
+          </div>
+        </div>
+
+        <button class="button primary" type="submit">{{ "Update card" if edit_card else "Create card" }}</button>
+      </form>
+    </section>
+
+    <section class="owner-panel">
+      <h2>Existing cards</h2>
+      <div class="owner-card-list">
+        {% for card in cards %}
+          <article>
+            <div>
+              <strong>{{ card.title }}</strong>
+              <span>{{ tourism_types|selectattr("id", "equalto", card.tourism_type)|map(attribute="display")|first }}</span>
+            </div>
+            <div class="owner-actions">
+              <a class="small-button" href="/tourism/{{ card.slug }}" target="_blank">View</a>
+              <a class="small-button" href="/owner?edit={{ card.slug }}#cards">Edit</a>
+              <form method="post" action="/owner/cards/{{ card.slug }}/delete" data-confirm="Delete this travel card?">
+                <button class="small-button danger" type="submit">Delete</button>
+              </form>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+  </section>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', path='js/owner.js') }}"></script>
+{% endblock %}

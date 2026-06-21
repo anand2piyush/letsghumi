@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}{{ settings.brand }} | Tourism Plans{% endblock %}
+
+{% block content %}
+  <section class="hero">
+    <div class="hero-media" aria-hidden="true"></div>
+    <div class="hero-content">
+      <p class="eyebrow">Travel planning for weekends, yatras, workations, and custom escapes</p>
+      <h1>Trips that feel local, calm, and easy to say yes to.</h1>
+      <p class="hero-copy">Choose a ready plan or build your own route with stays, transport, local guidance, and Instagram-ready trip memories handled in one place.</p>
+      <div class="hero-actions">
+        {% if settings.whatsapp_url %}
+          <a class="button primary" href="{{ settings.whatsapp_url }}" target="_blank" rel="noopener">Connect on WhatsApp</a>
+        {% endif %}
+        {% if settings.instagram_url %}
+          <a class="button secondary" href="{{ settings.instagram_url }}" target="_blank" rel="noopener">Connect on Instagram</a>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+  <section class="type-band" aria-label="Tourism categories">
+    {% for item in tourism_types %}
+      <a class="type-card {{ 'selected' if selected_type == item.id else '' }}" href="/?type={{ item.id }}">
+        <span>{{ item.name }}</span>
+        <strong>{{ item.display }}</strong>
+        <small>{{ item.tagline }}</small>
+      </a>
+    {% endfor %}
+  </section>
+
+  <section class="section-shell" id="trips">
+    <div class="section-heading">
+      <p class="eyebrow">Explore trips</p>
+      <h2>{{ "All LetsGhumi plans" if selected_type == "all" else "Plans for " ~ tourism_types|selectattr("id", "equalto", selected_type)|map(attribute="display")|first }}</h2>
+    </div>
+
+    <div class="trip-grid">
+      {% for card in cards %}
+        <article class="trip-card">
+          <a class="trip-image-slider" href="/tourism/{{ card.slug }}" aria-label="Open {{ card.title }}">
+            {% for image in card.images[:6] %}
+              <img src="{{ image.url }}" alt="{{ card.title }} image {{ loop.index }}" class="{{ 'active' if loop.first else '' }}">
+            {% endfor %}
+          </a>
+          <div class="trip-card-body">
+            <div class="trip-meta">
+              <span>{{ tourism_types|selectattr("id", "equalto", card.tourism_type)|map(attribute="display")|first }}</span>
+              {% if card.discount %}
+                <span>{{ card.discount }}% off</span>
+              {% endif %}
+            </div>
+            <h3><a href="/tourism/{{ card.slug }}">{{ card.title }}</a></h3>
+            <p>{{ card.card_description }}</p>
+            <div class="price-row">
+              {% if card.price|price_visible %}
+                <strong>Rs {{ card.price }}</strong>
+                {% set discounted = card.price|discounted_price(card.discount) %}
+                {% if discounted %}
+                  <span>After discount Rs {{ discounted }}</span>
+                {% endif %}
+              {% else %}
+                <strong>Custom quote</strong>
+                <span>Price depends on days and choices</span>
+              {% endif %}
+            </div>
+          </div>
+        </article>
+      {% else %}
+        <p class="empty-state">No trips in this category yet.</p>
+      {% endfor %}
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="guide-card">
+      <img src="{{ guide_image }}" alt="{{ settings.guide_name or 'LetsGhumi guide' }}">
+      <div>
+        <span>Guide support</span>
+        <strong>{{ settings.guide_name or "Your Local Guide" }}</strong>
+        <p>{{ settings.guide_detail or "Add guide details from the owner page." }}</p>
+      </div>
+    </div>
+
+    <!-- <div class="insta-footer">
+      <div class="footer-heading">
+        <span>Instagram posts</span>
+        {% if settings.instagram_url %}
+          <a href="{{ settings.instagram_url }}" target="_blank" rel="noopener">Open profile</a>
+        {% endif %}
+      </div> -->
+      <!-- <div class="insta-strip embed-strip" data-auto-scroll data-instagram-embeds>
+        {% for link in settings.home_instagram_links[:50] %}
+          <article class="insta-embed-card">
+            <blockquote class="instagram-media" data-instgrm-permalink="{{ link }}" data-instgrm-version="14">
+              <a href="{{ link }}" target="_blank" rel="noopener">
+                <span>Post {{ loop.index }}</span>
+                <small>View this Instagram post</small>
+              </a>
+            </blockquote>
+          </article>
+        {% else %}
+          <a href="{{ settings.instagram_url or '#' }}">
+            <span>Add Instagram links</span>
+            <small>Use owner page to add up to 50 posts.</small>
+          </a>
+        {% endfor %}
+      </div> -->
+    </div>
+  </footer>
+{% endblock %}

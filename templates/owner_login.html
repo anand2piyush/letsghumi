@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Owner Login | LetsGhumi</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/styles.css') }}">
+  </head>
+  <body class="owner-body">
+    <main class="login-panel">
+      <a class="brand" href="/">
+        <span class="brand-mark">LG</span>
+        <span>LetsGhumi Owner</span>
+      </a>
+      <h1>Owner login</h1>
+      <p>Use the hardcoded owner credentials to manage trips and Instagram links.</p>
+      {% if error %}
+        <div class="form-error">{{ error }}</div>
+      {% endif %}
+      <form method="post" action="/owner/login" class="stack-form">
+        <label>
+          Username
+          <input name="username" required autocomplete="username">
+        </label>
+        <label>
+          Password
+          <input name="password" type="password" required autocomplete="current-password">
+        </label>
+        <button class="button primary" type="submit">Login</button>
+      </form>
+    </main>
+  </body>
+</html>

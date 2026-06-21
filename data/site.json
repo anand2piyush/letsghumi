@@ -1,0 +1,132 @@
+{
+  "settings": {
+    "brand": "LetsGhumi",
+    "whatsapp_url": "https://wa.me/916201086736",
+    "instagram_url": "https://instagram.com/divya_vikash",
+    "guide_name": "Divya Vikash",
+    "guide_image": "/static/uploads/guide.jpeg",
+    "guide_detail": "2nd yr masters student",
+    "home_instagram_links": []
+  },
+  "cards": [
+    {
+      "slug": "rishikesh-weekend-river-reset",
+      "tourism_type": "weekend",
+      "title": "Rishikesh River Reset",
+      "card_description": "2D1N rafting, cafes, river walks, and peaceful evening aarti.",
+      "price": "6999",
+      "discount": "15",
+      "detailed_description": "A compact weekend plan with pickup support, riverside stay options, rafting slots, cafe hopping, and a guided Ganga aarti visit. Designed for travellers who want the trip to feel full without becoming tiring.",
+      "instagram_links": [
+        "https://www.instagram.com/p/C9demo11/",
+        "https://www.instagram.com/p/C9demo12/"
+      ],
+      "images": [
+        {
+          "url": "https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&w=1200&q=80",
+          "detail": "Morning riverfront views and soft walking routes near the ghats."
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=80",
+          "detail": "Adventure add-ons can include rafting, short hikes, and cafe trails."
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=80",
+          "detail": "Evening plans are paced around local food and river aarti timing."
+        }
+      ]
+    },
+    {
+      "slug": "varanasi-sacred-yatra",
+      "tourism_type": "devotional",
+      "title": "Varanasi Sacred Yatra",
+      "card_description": "Temple darshan, Ganga aarti, old-lane walks, and priest coordination.",
+      "price": "n/a",
+      "discount": "",
+      "detailed_description": "A devotional route for travellers who want structure around darshan timings, local transport, rituals, and heritage lanes. Pricing is kept custom because priest services, stay comfort, and group size change the plan.",
+      "instagram_links": [
+        "https://www.instagram.com/p/C9demo21/",
+        "https://www.instagram.com/p/C9demo22/"
+      ],
+      "images": [
+        {
+          "url": "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&w=1200&q=80",
+          "detail": "Sunrise boat rides can be added for a calm start before temple visits."
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=1200&q=80",
+          "detail": "Routes are planned around crowd flow, rituals, and senior-friendly movement."
+        }
+      ]
+    },
+    {
+      "slug": "manali-workcation-residence",
+      "tourism_type": "workcation",
+      "title": "Manali Workcation Residence",
+      "card_description": "Monthly stay with workspace, Wi-Fi, weekend trails, and team add-ons.",
+      "price": "34999",
+      "discount": "10",
+      "detailed_description": "Built for remote employees and small teams who need predictable Wi-Fi, stay support, laundry options, food coordination, and weekend exploration without planning every detail from scratch.",
+      "instagram_links": [
+        "https://www.instagram.com/p/C9demo31/",
+        "https://www.instagram.com/p/C9demo32/"
+      ],
+      "images": [
+        {
+          "url": "https://images.unsplash.com/photo-1605540436563-5bca919ae766?auto=format&fit=crop&w=1200&q=80",
+          "detail": "Long-stay rooms are selected for comfort, light, and reliable daily routines."
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
+          "detail": "Weekend route options can be added without disturbing workdays."
+        }
+      ]
+    },
+    {
+      "slug": "custom-himalayan-journey",
+      "tourism_type": "custom",
+      "title": "Custom Himalayan Journey",
+      "card_description": "Pick your number of days, stay category, transport, and activities.",
+      "price": "n/a",
+      "discount": "",
+      "detailed_description": "A flexible plan for travellers who already have a rough idea but want local guidance to make it practical. You can decide the number of days, places, transport comfort, food preferences, and activity level.",
+      "instagram_links": [
+        "https://www.instagram.com/p/C9demo41/",
+        "https://www.instagram.com/p/C9demo42/"
+      ],
+      "images": [
+        {
+          "url": "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=80",
+          "detail": "Custom plans balance scenic roads, rest time, and local experiences."
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
+          "detail": "Routes can be adjusted for families, friends, couples, or solo travellers."
+        }
+      ]
+    },
+    {
+      "slug": "test-wd",
+      "tourism_type": "weekend",
+      "title": "test wd",
+      "card_description": "test card",
+      "price": "100000",
+      "discount": "",
+      "detailed_description": "detsta test",
+      "images": [
+        {
+          "url": "/static/uploads/test-wd-1.jpeg",
+          "detail": "cjhsdghsdgsd"
+        },
+        {
+          "url": "/static/uploads/test-wd-2.jpeg",
+          "detail": "test 2"
+        }
+      ],
+      "instagram_links": [
+        "https://www.instagram.com/reel/DZMruC3ip3h/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==",
+        "https://www.instagram.com/reel/DZMruC3ip3h/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ=="
+      ]
+    }
+  ]
+}

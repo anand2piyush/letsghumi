@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}{{ card.title }} | {{ settings.brand }}{% endblock %}
+
+{% block content %}
+  <section class="detail-hero">
+    <div>
+      <a class="back-link" href="/?type={{ card.tourism_type }}">Back to {{ type_info.display }}</a>
+      <p class="eyebrow">{{ type_info.display }}</p>
+      <h1>{{ card.title }}</h1>
+      <p>{{ card.card_description }}</p>
+      <div class="detail-price">
+        {% if card.price|price_visible %}
+          <strong>Rs {{ card.price }}</strong>
+          {% set discounted = card.price|discounted_price(card.discount) %}
+          {% if discounted %}
+            <span>{{ card.discount }}% off: Rs {{ discounted }}</span>
+          {% endif %}
+        {% else %}
+          <strong>Custom quote</strong>
+          <span>Share your dates and preferences for pricing.</span>
+        {% endif %}
+      </div>
+      <div class="hero-actions">
+        {% if settings.whatsapp_url %}
+          <a class="button primary" href="{{ settings.whatsapp_url }}" target="_blank" rel="noopener">Ask on WhatsApp</a>
+        {% endif %}
+        {% if settings.instagram_url %}
+          <a class="button secondary" href="{{ settings.instagram_url }}" target="_blank" rel="noopener">View Instagram</a>
+        {% endif %}
+      </div>
+    </div>
+    <div class="detail-gallery">
+      {% for image in card.images[:6] %}
+        <figure>
+          <img src="{{ image.url }}" alt="{{ card.title }} image {{ loop.index }}">
+          <figcaption>{{ image.detail }}</figcaption>
+        </figure>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="detail-body">
+    <div class="detail-copy">
+      <p class="eyebrow">Full details</p>
+      <h2>What this plan includes</h2>
+      <p>{{ card.detailed_description }}</p>
+    </div>
+    <aside class="guide-card detail-guide">
+      <img src="{{ guide_image }}" alt="{{ settings.guide_name or 'LetsGhumi guide' }}">
+      <div>
+        <span>Trip guide</span>
+        <strong>{{ settings.guide_name or "Your Local Guide" }}</strong>
+        <p>{{ settings.guide_detail or "Add guide details from the owner page." }}</p>
+      </div>
+    </aside>
+  </section>
+
+  <!-- <div class="floating-insta">
+    <div class="insta-strip compact embed-strip" data-auto-scroll data-instagram-embeds>
+      {% for link in card.instagram_links[:10] %}
+        <article class="insta-embed-card">
+          <blockquote class="instagram-media" data-instgrm-permalink="{{ link }}" data-instgrm-version="14">
+            <a href="{{ link }}" target="_blank" rel="noopener">
+              <span>Instagram {{ loop.index }}</span>
+              <small>View this Instagram post</small>
+            </a>
+          </blockquote>
+        </article>
+      {% else %}
+        <a href="{{ settings.instagram_url or '#' }}" target="_blank" rel="noopener">
+          <span>Instagram</span>
+          <small>Add trip posts from owner page.</small>
+        </a>
+      {% endfor %}
+    </div>
+  </div> -->
+{% endblock %}

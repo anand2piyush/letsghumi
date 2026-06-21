@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{{ settings.brand if settings else "LetsGhumi" }}{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/styles.css') }}">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/">
+        <span class="brand-mark">LG</span>
+        <span>{{ settings.brand if settings else "LetsGhumi" }}</span>
+      </a>
+      <nav class="nav-pills" aria-label="Tourism types">
+        <a href="/" class="{{ 'active' if selected_type|default('') == 'all' else '' }}">All</a>
+        {% for item in tourism_types %}
+          <a href="/?type={{ item.id }}" class="{{ 'active' if selected_type|default('') == item.id else '' }}">{{ item.display }}</a>
+        {% endfor %}
+      </nav>
+      <div class="header-actions">
+        {% if settings and settings.whatsapp_url %}
+          <a class="icon-link whatsapp" href="{{ settings.whatsapp_url }}" target="_blank" rel="noopener" aria-label="Connect on WhatsApp">
+            <span>WA</span>
+          </a>
+        {% endif %}
+        {% if settings and settings.instagram_url %}
+          <a class="icon-link instagram" href="{{ settings.instagram_url }}" target="_blank" rel="noopener" aria-label="Connect on Instagram">
+            <span>IG</span>
+          </a>
+        {% endif %}
+      </div>
+    </header>
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    <script src="{{ url_for('static', path='js/main.js') }}"></script>
+    <script async src="https://www.instagram.com/embed.js"></script>
+    {% block scripts %}{% endblock %}
+  </body>
+</html>
