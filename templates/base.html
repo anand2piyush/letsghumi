@@ -13,6 +13,11 @@
     <header class="site-header">
       <a class="brand" href="/">
         <span class="brand-mark">LG</span>
+        
+
+
+
+
         <span>{{ settings.brand if settings else "LetsGhumi" }}</span>
       </a>
       <nav class="nav-pills" aria-label="Tourism types">
@@ -21,7 +26,7 @@
           <a href="/?type={{ item.id }}" class="{{ 'active' if selected_type|default('') == item.id else '' }}">{{ item.display }}</a>
         {% endfor %}
       </nav>
-      <div class="header-actions">
+      <!-- <div class="header-actions">
         {% if settings and settings.whatsapp_url %}
           <a class="icon-link whatsapp" href="{{ whatsapp_link|default(settings.whatsapp_url) }}" target="_blank" rel="noopener" aria-label="Connect on WhatsApp">
             <span>WA</span>
@@ -32,7 +37,7 @@
             <span>IG</span>
           </a>
         {% endif %}
-      </div>
+      </div> -->
     </header>
 
     <main>
